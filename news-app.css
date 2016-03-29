@@ -44,7 +44,8 @@ header h3
 
 header button.control-button
 {
-  color: #f9F9F9;
+  background-color: #f9f9f9;
+  color: #1E90FF;
   border-color: #f9F9F9;
   text-shadow: none;
 }
@@ -58,13 +59,18 @@ header button.submit-button
 
 header input, header textarea
 {
-  border: 4px solid white;
+  border: 4px solid #1E90FF;
   border-radius: 5px;
   margin-right: 0px !important;
   background-color: #4169E1;
   color: white;
   min-height: 35px;
   width: 120px;
+}
+
+header input
+{
+  border-color: #4169E1 !important;
 }
 
 header span.add-news input, header span.add-news textarea 
@@ -75,12 +81,17 @@ header span.add-news input, header span.add-news textarea
   width: auto;
 }
 
+header span.add-news button.control-button
+{
+  margin-left: 0px;
+}
+
 header select
 {
   -webkit-appearance: none;
   -moz-appearance: none;
   appearance:none;
-  border: 4px solid white;
+  border: 4px solid #4169E1;
   border-radius: 5px;
   text-indent: 0.01px;
   text-overflow: "";
@@ -264,6 +275,7 @@ label.tag-label
 .control-button:active
 {
   background: black;
+  border-color: black;
   text-shadow: 1px 1px black;
   color: white;
 }

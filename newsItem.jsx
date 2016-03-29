@@ -86,7 +86,7 @@ NewsItem = React.createClass({
   //add comments to articles
   addComment(event){
     event.preventDefault();
-  
+    
     let comment = {
       _id: this.props.contents.comments ? this.props.contents.comments.length + 1 : 1, 
       name: Meteor.user() ? Meteor.user().username : ReactDOM.findDOMNode(this.refs.commenter).value.trim(), //username or anonymous
