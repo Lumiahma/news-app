@@ -21,6 +21,11 @@ App = React.createClass({
       //use a regular expression for inclusive searches (TODO: add alternatives for exact searches)
       query[field] =  new RegExp(value, "i");
     }
+
+    //filters out all non-visible articles if not logged in
+    if(!Meteor.user()){
+      query["status"] = "visible";
+    }
   
     return {
       news: News.find(query, {sort: {createdAt: -1}}).fetch(),
@@ -37,6 +42,7 @@ App = React.createClass({
   
   //submit a news article (no comments or tags yet)
   submitNews(event){
+
     event.preventDefault();
     
     let author = Meteor.user().username || "Admin";
@@ -69,7 +75,7 @@ App = React.createClass({
       value: value
     });
     
-    //ReactDOM.findDOMNode(this.refs.filterLabel).value = ReactDOM.findDOMNode(this.refs.filterLabel).value + filter + " " + value; 
+    ReactDOM.findDOMNode(this.refs.filterValue).value = "";  
   },
   
   searchNews(event){
@@ -79,7 +85,8 @@ App = React.createClass({
       filter: "header",
       value: ReactDOM.findDOMNode(this.refs.searchValue).value.trim() || ""
     });
-    
+
+    ReactDOM.findDOMNode(this.refs.searchValue).value = "";
   },
   
   sortNews(event){
@@ -98,6 +105,8 @@ App = React.createClass({
   
   showControls(target, event){
     
+    //TODO: Add a CSS rule for opened control spans
+
     if(ReactDOM.findDOMNode(this.refs[target]).style.display == "inline"){
       ReactDOM.findDOMNode(this.refs[target]).style.display = "none";
     }else{
@@ -130,8 +139,8 @@ App = React.createClass({
             <button className="control-button filter-open" onClick={this.showControls.bind(this, "filterControls")} >Filter news</button>
             <span className="filter-controls" ref="filterControls">  
               <br className="hidden-break" />
-              {this.data.user ?
               
+              {this.data.user ?
               <select ref="filterBy">
                 <option value="tags">By tag(s)</option>
                 <option value="author">By author</option>
@@ -168,8 +177,6 @@ App = React.createClass({
 
         </header>
         
-
-             
         <div className="news-feed-container">
           <br />
           {this.renderNewsItems()}
